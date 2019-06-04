@@ -14,4 +14,5 @@ android:
     - android-28
 before_install:
 - chmod +x gradlew
+- gem update --system
 - bundle install
