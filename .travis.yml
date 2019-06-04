@@ -15,5 +15,5 @@ android:
 before_install:
 - chmod +x gradlew
 - gem update --system
-- bundle update --bundler
+- gem install bundler
 - bundle install
