@@ -31,6 +31,11 @@ licenses:
 
 # Emulator Management: Create, Start and Wait
 before_install:
+- chmod +x gradlew
+- gem update --system
+- gem install bundler
+- bundle install
+
 - echo 'count=0' > /home/travis/.android/repositories.cfg # Avoid harmless sdkmanager warning
 - echo y | sdkmanager "platform-tools" >/dev/null
 - echo y | sdkmanager "tools" >/dev/null # A second time per Travis docs, gets latest versions
