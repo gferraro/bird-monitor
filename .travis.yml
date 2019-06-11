@@ -35,11 +35,8 @@ before_install:
 - export PATH=${ANDROID_SDK_ROOT}/tools/bin:$PATH
 # Create and start emulator for the script. Meant to race the install task.
 
-- export ANDROID_SDK_ROOT=$ANDROID_HOME
-- find ${ANDROID_HOME} -name kernel-ranchu
-- find ${ANDROID_HOME} -name kernel-qemu
 - echo no | avdmanager create avd --force -n test -k "system-images;android-19;default;armeabi-v7a"
-- $ANDROID_HOME/emulator/emulator -avd test -no-audio -no-window &
+- $ANDROID_SDK_ROOT/emulator/emulator -avd test -no-audio -no-window &
 
 # Emulator Management: Create, Start and Wait
 before_script:
