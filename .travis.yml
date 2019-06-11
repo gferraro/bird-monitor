@@ -29,11 +29,15 @@ before_install:
 - echo "d56f5187479451eabf01fb78af6dfcb131a6481e" > "$ANDROID_HOME/licenses/android-sdk-license"
 - echo "24333f8a63b6825ea9c5514f83c2829b004d1fee" >> "$ANDROID_HOME/licenses/android-sdk-license"
 # Install the rest of tools (e.g., avdmanager)
-- sdkmanager --sdk_root=$ANDROID_SDK_ROOT tools
+- yes | sdkmanager --sdk_root=$ANDROID_SDK_ROOT tools
 # Install the system image
-- sdkmanager --sdk_root=$ANDROID_SDK_ROOT "system-images;android-19;default;armeabi-v7a"
+- yes | sdkmanager --sdk_root=$ANDROID_SDK_ROOT "system-images;android-19;default;armeabi-v7a"
 - export PATH=${ANDROID_SDK_ROOT}/tools/bin:$PATH
 # Create and start emulator for the script. Meant to race the install task.
+
+- export ANDROID_SDK_ROOT=$ANDROID_HOME
+- find ${ANDROID_HOME} -name kernel-ranchu
+- find ${ANDROID_HOME} -name kernel-qemu
 - echo no | avdmanager create avd --force -n test -k "system-images;android-19;default;armeabi-v7a"
 - $ANDROID_HOME/emulator/emulator -avd test -no-audio -no-window &
 
