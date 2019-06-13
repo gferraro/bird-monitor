@@ -6,7 +6,7 @@ env:
   - TOOLS=${ANDROID_HOME}/tools
   - PATH=${ANDROID_HOME}:${ANDROID_HOME}/emulator:${TOOLS}:${TOOLS}/bin:${ANDROID_HOME}/platform-tools:${PATH}
   - API=27
-  - ABI=x86_64
+  - ABI=x86
   - AUDIO=-no-audio
 language: android
 dist: trusty
