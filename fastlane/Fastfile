@@ -35,4 +35,27 @@ platform :android do
     gradle(task: "clean assembleRelease")
     upload_to_play_store
   end
+
+  # desc "Builds a new Alpha release on Google Play"
+  # lane :alpha do
+  #   # ...
+  #   gradle(
+  #     task: 'assemble',
+  #     build_type: 'Debug'
+  #   )
+
+  # end
+
+  # desc "Deploys a new Alpha release on Google Play"
+  # lane :playstore_alpha do
+  #   # ...
+  #   gradle(
+  #     task: 'assemble',
+  #     build_type: 'Debug'
+  #   )
+  #   upload_to_play_store(
+  #     track: 'alpha',
+  #   )
+  # end
 end
+# http://tigar.nl/2018/05/15/android-app-signing/ can be used in future
