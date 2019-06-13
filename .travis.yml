@@ -1,7 +1,7 @@
 env:
   global:
   - ADB_INSTALL_TIMEOUT=8
-  - EMU_FLAVOR=google_apis_playstore
+  - EMU_FLAVOR=default
   - ANDROID_HOME=/usr/local/android-sdk
   - TOOLS=${ANDROID_HOME}/tools
   - PATH=${ANDROID_HOME}:${ANDROID_HOME}/emulator:${TOOLS}:${TOOLS}/bin:${ANDROID_HOME}/platform-tools:${PATH}
