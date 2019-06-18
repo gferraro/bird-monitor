@@ -6,7 +6,7 @@ env:
   - TOOLS=${ANDROID_HOME}/tools
   - PATH=${ANDROID_HOME}:${ANDROID_HOME}/emulator:${TOOLS}:${TOOLS}/bin:${ANDROID_HOME}/platform-tools:${PATH}
   - API=27
-  - ABI=x86_64
+  - ABI=x86
   - AUDIO=-no-audio
 language: android
 dist: trusty
@@ -18,8 +18,6 @@ licenses:
 - android-sdk-license-.+
 - google-gdk-license-.+
 before_install:
-- openssl aes-256-cbc -K $encrypted_d16e002e72d4_key -iv $encrypted_d16e002e72d4_iv
-  -in api-bird-monitor.json.enc -out api-bird-monitor.json -d
 - chmod +x gradlew
 - gem update --system
 - gem install bundler
@@ -32,14 +30,15 @@ before_install:
 - echo y | sdkmanager "platforms;android-28" >/dev/null
 - echo y | sdkmanager --channel=4 "emulator"
 - echo y | sdkmanager "extras;android;m2repository" >/dev/null
-# - echo y | sdkmanager "system-images;android-$API;$EMU_FLAVOR;$ABI"
-# - echo no | avdmanager create avd --force -n test -k "system-images;android-$API;$EMU_FLAVOR;$ABI"
-#   -c 10M
-# - emulator -verbose -avd test -no-accel -no-snapshot -no-window $AUDIO -camera-back
-#   none -camera-front none -selinux permissive -qemu -m 2048 &
-# - android-wait-for-emulator
-# - adb shell input keyevent 82 &
-install:
-- true
 script:
-- "./gradlew build"
+- "./gradlew clean build"
+
+deploy:
+  provider: releases
+  skip_cleanup: true
+  file_glob: true
+  api_key:
+    secure: k/nJWju6Jjgk/yJ4N1mt4bzJ2v7aVVcDQt6dOP54mlbX39vXau4pg/4BNxdkrM0Sl46sd262NBipN4QZWPwkKNldihSDxYXr3XReW7jmXgEbqd9/jaAXiMBVICvOyaVgtlAv6HaUW4/3jceKrt6WWvThHdHJmYLXpAXEWUYo7eoQtNIz2PQa3fEVFQYXAiyg+nZjvkzdUCSxK6gOqFl/1B6Y9aApaFkFKbZvmM1u2sw1aSJBLWnUGp6lE1//WUzQiRKFIDJqplxUtLXaVSvefl1KLEwxE+TRi2gv6K06GJHFnsG0BAo45WPoluLr4ixt1UDSHrUQaNzfJMufVBHtt8j22vFxMEqI45c9OZina+nGRckp+vHDTBGR3shP6XTstSsWkRdqER+of7b6Heaq/Z+MW74bTLOnn9w9b9kDglnpUjnGlB6/auWShoyzMZ0crmTdvyNwfONJGh0SU/pAJxDi+4WRAuy6ldCbGmaJGXdVeLI1b+zoW0huu+VDIMgajd+zxTlkWPnWz0FMEnAbOnwd0lcllulmqnwzX1kmR22fnNc38M49tVXa+ccs/QBCwPmmYW5mo2u65xUBaeZsgqWODptHiEGaF8dj+zxqyHInm7Ci8nvgIG94ZpGCGB/9RoZAuSzHof14OXTUhCr5orrjEclvdoYAjqPrZikZVUA=
+  file: "app/build/outputs/apk/release/*"
+  on:
+    repo: gferraro/bird-monitor
