@@ -5,7 +5,7 @@ env:
   - ANDROID_HOME=/usr/local/android-sdk
   - TOOLS=${ANDROID_HOME}/tools
   - PATH=${ANDROID_HOME}:${ANDROID_HOME}/emulator:${TOOLS}:${TOOLS}/bin:${ANDROID_HOME}/platform-tools:${PATH}
-  - API=27
+  - API=28
   - ABI=x86
   - AUDIO=-no-audio
 language: android
@@ -27,18 +27,15 @@ before_install:
 - echo y | sdkmanager "tools" >/dev/null
 - echo y | sdkmanager "build-tools;28.0.3" >/dev/null
 - echo y | sdkmanager "platforms;android-$API" >/dev/null
-- echo y | sdkmanager "platforms;android-28" >/dev/null
 - echo y | sdkmanager --channel=4 "emulator"
 - echo y | sdkmanager "extras;android;m2repository" >/dev/null
 script:
-- "./gradlew clean build"
-
+- "./gradlew clean assembleRelease"
 deploy:
   provider: releases
-  skip_cleanup: true
-  file_glob: true
   api_key:
-    secure: k/nJWju6Jjgk/yJ4N1mt4bzJ2v7aVVcDQt6dOP54mlbX39vXau4pg/4BNxdkrM0Sl46sd262NBipN4QZWPwkKNldihSDxYXr3XReW7jmXgEbqd9/jaAXiMBVICvOyaVgtlAv6HaUW4/3jceKrt6WWvThHdHJmYLXpAXEWUYo7eoQtNIz2PQa3fEVFQYXAiyg+nZjvkzdUCSxK6gOqFl/1B6Y9aApaFkFKbZvmM1u2sw1aSJBLWnUGp6lE1//WUzQiRKFIDJqplxUtLXaVSvefl1KLEwxE+TRi2gv6K06GJHFnsG0BAo45WPoluLr4ixt1UDSHrUQaNzfJMufVBHtt8j22vFxMEqI45c9OZina+nGRckp+vHDTBGR3shP6XTstSsWkRdqER+of7b6Heaq/Z+MW74bTLOnn9w9b9kDglnpUjnGlB6/auWShoyzMZ0crmTdvyNwfONJGh0SU/pAJxDi+4WRAuy6ldCbGmaJGXdVeLI1b+zoW0huu+VDIMgajd+zxTlkWPnWz0FMEnAbOnwd0lcllulmqnwzX1kmR22fnNc38M49tVXa+ccs/QBCwPmmYW5mo2u65xUBaeZsgqWODptHiEGaF8dj+zxqyHInm7Ci8nvgIG94ZpGCGB/9RoZAuSzHof14OXTUhCr5orrjEclvdoYAjqPrZikZVUA=
-  file: "app/build/outputs/apk/release/*"
+    secure: ip/r3Bz+Hshxg2a3SeCcT+hmJdr4DEQJ94/61kpTczXFX/oRzGLVs3E2qSoqh3ZSaEIlZbybHa3d23eSQDi+7zJ1Z8AmMBE13mgvYdASJouHhDmxeCxgbZSfVSI3YU5aOUGo7mxYrdXnuTv+8I8KB4VV5X/DLirhO2KC5Lwqt/jhHoHMsY0MMrDRfsjKIfrBWmHC/gg+JHV44x+G5BPLDLCGUP+FhapC6m5V8RYvGw+cDPcU/yZ55J715+WCjjlfX7aBjWKgTuPyrL05ZKqBZcezo0KT4FIxv6YF4KW3iaHW9litK7TkXPEdDyVygnHI5lFYV8vs3VEvCAdvf+eppkUFFzSCu6BizGZ6J5f/4VsJH2QeZ+b7th1SmQCqv/iTnaJWgejlF61PtQ1nJ6L54oGOspGaxWWveCNBpQmdvLDXih8V3SNCSdOu79EU/siU8GGXh8RtOXEXkyjHIvz2ZoCg5zl6V7/rbPvJxdp+9ofs+jF4KIiDfK10sz2kO83/CiYlblxeUM8CTTv5b9c73ATUXDI61pcoTaeWBQ6upMaxbpik+wz5De4uqllEzpnCP1htBSUeDeYmSBLKxcfFaw7X+C0vZXSqqYBu6dBRCVG7USIYaZQEb4tw5+UEtVxExQFVO/Y89+fFWgeR7BA8ULlYX3lsVD3+1ZDZv3Bu7pQ=
+  file: 'app/build/outputs/apk/release/*.apk'
   on:
-    repo: gferraro/bird-monitor
+    repo: TheCacophonyProject/bird-monitor
+    tags: true
