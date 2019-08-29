@@ -22,7 +22,7 @@ android {
         targetSdkVersion 28
         versionCode 150010604
         //generateVersionCode()
-        versionName 1.6.4
+        versionName "1.6.4"
         //generateVersionName()
 
         archivesBaseName = "Bird Monitor-$versionName"
